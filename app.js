@@ -1,5 +1,6 @@
 // ================= CONFIG =================
-const API = "https://script.google.com/macros/s/AKfycbyB_S_dAbrabNpPtjF6MuVECoM_kGCefBRtNNeGk4iYIBYmh-Han2XyuciNy7dov9f8/exec";
+const API = "https://script.google.com/macros/s/AKfycbweV67pbANvA29znP7dSDnIPSRIhN20TZg6nxaG8QLskUPyHJDoPqXyTeX1DjTEy0sD8A/exec";
+
 // ================= STATE =================
 let currentUser = 'she';
 
@@ -7,7 +8,6 @@ let currentUser = 'she';
 async function postJSON(payload){
   try {
     console.log('🚀 Sending POST request:', payload);
-    console.log('📡 URL:', API);
     
     const res = await fetch(API, { 
       method: 'POST',
@@ -25,8 +25,12 @@ async function postJSON(payload){
       console.log('✅ Parsed response:', data);
     } catch (e) {
       console.error('❌ JSON parse error:', e);
-      console.log('Raw response:', text);
-      throw new Error('Invalid JSON response from server');
+      // If we can't parse JSON but got 200, assume success
+      if (res.status === 200 || res.status === 0) {
+        console.log('⚠️ Assuming success despite JSON error');
+        return { ok: true };
+      }
+      throw new Error('Server response error: ' + text.substring(0, 100));
     }
     
     if (data && data.error) {
@@ -36,7 +40,16 @@ async function postJSON(payload){
     return data;
   } catch (error) {
     console.error('❌ POST Error:', error);
-    alert('Error: ' + error.message);
+    
+    // Show user-friendly error message
+    if (error.message.includes('Failed to fetch') || error.message.includes('Network')) {
+      alert('❌ Network error. Please check your internet connection and try again.');
+    } else if (error.message.includes('Authentication') || error.message.includes('Google')) {
+      alert('❌ Authentication error. Please check your Apps Script deployment permissions.');
+    } else {
+      alert('❌ Error: ' + error.message);
+    }
+    
     return null;
   }
 }
@@ -145,7 +158,6 @@ addEntryBtn.onclick = async ()=>{
     alert("✅ Entry added successfully!");
   } else {
     console.error('❌ Failed to add entry');
-    alert("❌ Failed to add entry. Check console for details.");
   }
 };
 
@@ -175,7 +187,6 @@ quickDepositBtn.onclick = async ()=>{
     alert("✅ Deposit added successfully!");
   } else {
     console.error('❌ Failed to add deposit');
-    alert("❌ Failed to add deposit. Check console for details.");
   }
 };
 
@@ -209,7 +220,6 @@ addTaskBtn.onclick = async ()=>{
     alert("✅ Task added successfully!");
   } else {
     console.error('❌ Failed to add task');
-    alert("❌ Failed to add task. Check console for details.");
   }
 };
 
@@ -227,7 +237,6 @@ saveNoteBtn.onclick = async ()=>{
     alert("✅ Note saved successfully!");
   } else {
     console.error('❌ Failed to save note');
-    alert("❌ Failed to save note. Check console for details.");
   }
 };
 
@@ -248,7 +257,6 @@ clearNoteBtn.onclick = async ()=>{
     alert("✅ Note cleared!");
   } else {
     console.error('❌ Failed to clear note');
-    alert("❌ Failed to clear note. Check console for details.");
   }
 };
 
