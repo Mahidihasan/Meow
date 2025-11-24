@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Couple Meow — Cozy Love Tracker</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+  <!-- APP ROOT -->
+  <div id="appRoot" class="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo">🐾 <span class="logo-text">Meow Love</span></div>
+
+      <div class="user-switch">
+        <button id="sheBtn" class="user-btn active">She 🐱</button>
+        <button id="heBtn" class="user-btn">He 😺</button>
+      </div>
+
+      <div class="side-footer">Cozy • Private • Love</div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- TOP HEADER -->
+      <header class="topbar">
+        <h1 id="title">She Meow's Cozy Space</h1>
+        <div class="streak" id="streak">❤️ Love Streak</div>
+      </header>
+
+      <!-- SUMMARY CARDS -->
+      <section class="grid summary-grid">
+        <div class="card">
+          <div class="card-title">Daily Expense</div>
+          <div class="big" id="summaryDaily">0 BDT</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Weekly Expense</div>
+          <div class="big" id="summaryWeekly">0 BDT</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Monthly Expense</div>
+          <div class="big" id="summaryMonthly">0 BDT</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Remaining Balance</div>
+          <div class="big" id="summaryRemaining">0 BDT</div>
+        </div>
+      </section>
+
+      <!-- CONTROLS AREA -->
+      <section class="grid controls-grid">
+        <!-- ADD ENTRY -->
+        <div class="card">
+          <div class="card-title">Add Expense / Deposit</div>
+
+          <div class="row">
+            <input id="amount" type="number" placeholder="Amount (BDT)" />
+            <select id="type">
+              <option value="expense">Expense</option>
+              <option value="deposit">Deposit</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <select id="category">
+              <option>Food</option>
+              <option>Transport</option>
+              <option>Shopping</option>
+              <option>Bills</option>
+              <option>Health</option>
+              <option>Gift</option>
+              <option>Others</option>
+            </select>
+            <input id="note" placeholder="Note (optional)" />
+          </div>
+
+          <div class="row actions">
+            <button id="addEntryBtn" class="btn btn-primary">Save</button>
+            <button id="quickDepositBtn" class="btn btn-ghost">Quick Deposit</button>
+          </div>
+        </div>
+
+        <!-- TASKS & NOTES -->
+        <div class="card">
+          <div class="card-title">Create Task</div>
+          <input id="taskTitle" placeholder="Task title" />
+
+          <div class="row">
+            <input id="taskDate" type="date" />
+            <input id="taskTime" type="time" />
+            <select id="taskAssignee">
+              <option value="she">She</option>
+              <option value="he">He</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+
+          <div class="row actions">
+            <button id="addTaskBtn" class="btn btn-primary">Add Task</button>
+          </div>
+
+          <div style="margin-top: 12px;">
+            <div class="card-title">Shared Notes</div>
+            <textarea id="sharedNote" rows="3" placeholder="Write something sweet..."></textarea>
+
+            <div class="row actions">
+              <button id="saveNoteBtn" class="btn btn-primary">Save</button>
+              <button id="clearNoteBtn" class="btn btn-ghost">Clear</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD -->
+      <section class="grid dash-grid">
+        <!-- DAILY TASKS -->
+        <div class="card card-tasks">
+          <div class="card-title">Daily Tasks</div>
+          <div id="dailyTasks"></div>
+
+          <div class="subrow">
+            <div>
+              <div class="small-title">Completed</div>
+              <div id="completedTasks"></div>
+            </div>
+
+            <div>
+              <div class="small-title">Failed</div>
+              <div id="failedTasks"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPENSE LISTS -->
+        <div class="card card-recent">
+          <div class="card-title">Recent Entries</div>
+          <div id="entryList"></div>
+
+          <hr style="margin:12px 0"/>
+
+          <div class="card-title">All Financial Records</div>
+          <div id="totalList" class="total-list"></div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <small>Made with ❤️ by two soulmates</small>
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
